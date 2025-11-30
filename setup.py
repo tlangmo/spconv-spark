@@ -23,25 +23,12 @@ import re
 # Package meta-data.
 NAME = 'spconv'
 RELEASE_NAME = NAME
-deps = ["cumm"]
 cuda_ver = os.environ.get("CUMM_CUDA_VERSION", "")
-
-# is_ci_build = cuda_ver != ""
-# if not cuda_ver:
-#     nvcc_version = subprocess.check_output(["nvcc", "--version"
-#                                             ]).decode("utf-8").strip()
-#     nvcc_version_str = nvcc_version.split("\n")[3]
-#     version_str: str = re.findall(r"release (\d+.\d+)",
-#                                     nvcc_version_str)[0]
-#     cuda_ver = version_str
 
 if cuda_ver:
     cuda_ver_str = cuda_ver.replace(".", "") # 10.2 to 102
-
     RELEASE_NAME += "-cu{}".format(cuda_ver_str)
-    deps = ["cumm-cu{}>=0.7.11, <0.8.0".format(cuda_ver_str)]
-else:
-    deps = ["cumm>=0.7.11, <0.8.0"]
+    deps = ["cumm-cu{}".format(cuda_ver_str)]
 
 
 
